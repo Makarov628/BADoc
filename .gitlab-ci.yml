@@ -1,0 +1,11 @@
+stages:
+    - deploy
+
+variables:
+    app_name: "badoc"
+
+deploy:
+    stage: deploy
+    script:
+        - 'pm2 delete $app_name || : && pm2 start "dotnet ./app/BADoc.Web.dll --urls=https://*:6001" --name $app_name -u user'
+    when: manual
